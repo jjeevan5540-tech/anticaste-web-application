@@ -39,8 +39,8 @@ var AdminDashboard = {
       case 'audit': this.renderAudit(el); break;
     }
   },
-  renderOverview: function(el) {
-    var users = AppState.getUsers();
+  renderOverview: async function(el) {
+    var users = await AppState.getUsers();
     var stats = MockData.statistics;
     var pendingUsers = users.filter(function(u) { return u.status === 'pending'; }).length;
     var activeUsers = users.filter(function(u) { return u.status === 'active'; }).length;
@@ -56,8 +56,8 @@ var AdminDashboard = {
       '<h2 style="font-size:var(--text-lg);margin-bottom:var(--space-4);">Recent Users</h2><div id="recent-users"></div>';
     this.renderRecentUsers(el.querySelector('#recent-users'));
   },
-  renderRecentUsers: function(el) {
-    var users = AppState.getUsers().slice(-5).reverse();
+  renderRecentUsers: async function(el) {
+    var users = (await AppState.getUsers()).slice(-5).reverse();
     if (users.length === 0) { el.innerHTML = '<p style="font-size:var(--text-sm);">No registered users yet.</p>'; return; }
     el.innerHTML = users.map(function(u) {
       var statusClass = u.status === 'active' ? 'badge-success' : u.status === 'pending' ? 'badge-warning' : 'badge-error';
@@ -68,8 +68,8 @@ var AdminDashboard = {
         '<span class="badge ' + statusClass + '">' + u.status + '</span></div></div>';
     }).join('');
   },
-  renderPending: function(el) {
-    var pending = AppState.getUsers().filter(function(u) { return u.status === 'pending'; });
+  renderPending: async function(el) {
+    var pending = (await AppState.getUsers()).filter(function(u) { return u.status === 'pending'; });
     if (pending.length === 0) { el.innerHTML = '<div class="empty-state"><div class="empty-state-icon">\u2705</div><h3 class="empty-state-title">All Caught Up</h3><p class="empty-state-text">No pending approvals.</p></div>'; return; }
     el.innerHTML = '<p style="font-size:var(--text-sm);margin-bottom:var(--space-4);">' + pending.length + ' registration(s) awaiting approval</p>' +
       pending.map(function(u) {
@@ -101,25 +101,25 @@ var AdminDashboard = {
           '</div></div>';
       }).join('');
   },
-  approveUser: function(id) {
+  approveUser: async function(id) {
     if (!confirm('Approve this user?')) return;
-    AppState.approveUser(id);
+    await AppState.approveUser(id);
     Toast.show('User approved', 'success');
     this.renderTab();
   },
-  rejectUser: function(id) {
+  rejectUser: async function(id) {
     if (!confirm('Reject this user?')) return;
-    AppState.rejectUser(id);
+    await AppState.rejectUser(id);
     Toast.show('User rejected', 'success');
     this.renderTab();
   },
-  renderUsers: function(el) {
+  renderUsers: async function(el) {
     el.innerHTML = '<div class="search-bar" style="margin-bottom:var(--space-4);"><span class="search-bar-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>' +
       '<input class="input" type="search" id="admin-user-search" placeholder="Search users..."></div><div id="admin-users-list"></div>';
-    this.renderUsersList(AppState.getUsers());
-    document.getElementById('admin-user-search').addEventListener('input', function(e) {
+    this.renderUsersList(await AppState.getUsers());
+    document.getElementById('admin-user-search').addEventListener('input', async function(e) {
       var q = e.target.value.toLowerCase();
-      AdminDashboard.renderUsersList(AppState.getUsers().filter(function(u) { return u.name.toLowerCase().includes(q) || u.email.toLowerCase().includes(q); }));
+      AdminDashboard.renderUsersList((await AppState.getUsers()).filter(function(u) { return u.name.toLowerCase().includes(q) || u.email.toLowerCase().includes(q); }));
     });
   },
   renderUsersList: function(users) {
@@ -143,8 +143,8 @@ var AdminDashboard = {
           '</div></div></div></div>';
       }).join('');
   },
-  viewUser: function(id) {
-    var users = AppState.getUsers();
+  viewUser: async function(id) {
+    var users = await AppState.getUsers();
     var user = users.find(function(u) { return u.id === id; });
     if (!user) return;
     var hasStudent = user.institution || user.studentId || user.course || user.year;
@@ -173,18 +173,18 @@ var AdminDashboard = {
       '<button class="btn btn-danger btn-sm" onclick="Modal.close();AdminDashboard.deleteUser(' + user.id + ')">Delete</button></div>';
     Modal.open(html);
   },
-  toggleUserStatus: function(id) {
-    var users = AppState.getUsers();
+  toggleUserStatus: async function(id) {
+    var users = await AppState.getUsers();
     var user = users.find(function(u) { return u.id === id; });
     if (!user) return;
     var newStatus = user.status === 'active' ? 'suspended' : 'active';
-    AppState.updateUserStatus(id, newStatus);
+    await AppState.updateUserStatus(id, newStatus);
     Toast.show('User ' + (newStatus === 'active' ? 'activated' : 'suspended'), 'success');
     this.renderTab();
   },
-  deleteUser: function(id) {
+  deleteUser: async function(id) {
     if (!confirm('Delete this user?')) return;
-    AppState.deleteUser(id);
+    await AppState.deleteUser(id);
     Toast.show('User deleted', 'success');
     this.renderTab();
   },
@@ -248,8 +248,8 @@ var AdminDashboard = {
     var report = MockData.reports.find(function(r) { return r.id === id; });
     if (report) { report.status = status; Toast.show('Report ' + status, 'success'); this.renderTab(); }
   },
-  renderAudit: function(el) {
-    var logs = AppState.getAuditLog();
+  renderAudit: async function(el) {
+    var logs = await AppState.getAuditLog();
     if (logs.length === 0) { el.innerHTML = '<div class="empty-state"><div class="empty-state-icon">\uD83D\uDCDD</div><h3 class="empty-state-title">No Activity Yet</h3><p class="empty-state-text">Admin actions will appear here.</p></div>'; return; }
     el.innerHTML = '<p style="font-size:var(--text-xs);margin-bottom:var(--space-4);">Showing last ' + logs.length + ' actions</p>' +
       logs.map(function(log) {
