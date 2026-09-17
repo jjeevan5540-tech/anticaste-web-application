@@ -1,0 +1,15 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body { font-family: var(--font-body); font-size: var(--text-base); line-height: var(--leading-relaxed); color: var(--color-text); background: var(--color-bg); min-height: 100vh; -webkit-font-smoothing: antialiased; position: relative; }
+body::before { content: ""; position: fixed; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--color-primary), var(--color-accent), var(--color-primary-dark), var(--color-primary)); background-size: 200% 100%; animation: gradient-slide 20s linear infinite; will-change: transform; z-index: 9999; }
+@keyframes gradient-slide { 0% { background-position: 0% 0%; } 100% { background-position: 200% 0%; } }
+h1, h2, h3, h4 { line-height: var(--leading-tight); font-weight: var(--font-bold); color: var(--color-text); font-family: var(--font-serif); }
+h1 { font-size: var(--text-3xl); }
+h2 { font-size: var(--text-2xl); }
+h3 { font-size: var(--text-xl); }
+h4 { font-size: var(--text-lg); }
+a { color: var(--color-accent); text-decoration: none; }
+a:hover { color: var(--color-primary); }
+img { max-width: 100%; height: auto; display: block; }
+button, input, textarea, select { font-family: inherit; font-size: inherit; color: inherit; }
+button { cursor: pointer; border: none; background: none; }

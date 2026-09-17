@@ -1,0 +1,47 @@
+@media (max-width: 768px) {
+  .app-sidebar { display: none !important; }
+  .app-content { margin-left: 0 !important; }
+  .desktop-only { display: none !important; }
+  .mobile-only { display: block !important; }
+  .bottom-nav { display: block; }
+  .app-main { padding: var(--space-4); padding-bottom: calc(var(--space-6) + var(--bottom-nav-height)); }
+  h1 { font-size: var(--text-2xl); }
+  h2 { font-size: var(--text-xl); }
+  .grid-2 { grid-template-columns: 1fr; }
+  .post-card { padding: var(--space-4); }
+  .card { padding: var(--space-4); }
+  .filter-chips { overflow-x: auto; flex-wrap: nowrap; padding-bottom: var(--space-2); -webkit-overflow-scrolling: touch; }
+  .filter-chip { flex-shrink: 0; }
+  .modal { max-width: 100%; margin: var(--space-4); max-height: calc(100vh - var(--space-8)); }
+  .toast-container { left: var(--space-4); right: var(--space-4); bottom: calc(var(--bottom-nav-height) + var(--space-4)); }
+  .toast { max-width: 100%; }
+  .tabs { overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; }
+  .tab-btn { flex-shrink: 0; }
+  .auth-container { padding-top: var(--space-4); }
+  .auth-card { padding: var(--space-4); border-radius: 0; border-left: none; border-right: none; }
+  .chat-layout { height: calc(100vh - var(--header-height) - var(--bottom-nav-height) - var(--space-8)); border-radius: 0; border-left: none; border-right: none; }
+  .chat-sidebar { width: 100%; border-right: none; }
+  .chat-main { position: absolute; inset: 0; z-index: 50; background: var(--color-surface); }
+  .chat-back-btn { display: flex; }
+  .chat-bubble { max-width: 85%; }
+}
+@media (min-width: 769px) and (max-width: 1023px) {
+  .app-sidebar { width: 200px; }
+  .app-content { margin-left: 200px; }
+  .bottom-nav { display: none; }
+  .app-main { padding-bottom: var(--space-8); }
+}
+@media (min-width: 1024px) {
+  .bottom-nav { display: none; }
+  .app-main { padding-bottom: var(--space-8); padding-left: var(--space-8); padding-right: var(--space-8); }
+  h1 { font-size: var(--text-3xl); }
+  h2 { font-size: var(--text-2xl); }
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .post-card { padding: var(--space-6); }
+  .card { padding: var(--space-6); }
+}
+@media print {
+  .app-sidebar, .app-header, .bottom-nav, .modal-backdrop, .toast-container { display: none !important; }
+  .app-content { margin-left: 0 !important; }
+  .app-main { padding: 0; max-width: 100%; }
+}
