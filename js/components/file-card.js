@@ -1,4 +1,4 @@
-const FileCard = {
+var FileCard = {
   render: function(post) {
     return '<article class="post-card">' +
       PostCard.renderHeader(post) +

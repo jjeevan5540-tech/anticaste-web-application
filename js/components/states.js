@@ -1,4 +1,4 @@
-const States = {
+var States = {
   empty(title, text, action) {
     return '<div class="empty-state"><div class="empty-state-icon">\u{1F4DD}</div><h3 class="empty-state-title">' + title + '</h3><p class="empty-state-text">' + text + '</p>' + (action ? '<button class="btn btn-primary btn-sm" onclick="' + action.onclick + '">' + action.label + '</button>' : '') + '</div>';
   },

@@ -1,4 +1,4 @@
-const VideoCard = {
+var VideoCard = {
   getYouTubeId(url) {
     if (!url) return null;
     var match = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|live\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);

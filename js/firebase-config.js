@@ -1,4 +1,4 @@
-const firebaseConfig = {
+var firebaseConfig = {
   apiKey: "AIzaSyC9pSlA6hQ04QTfdvLz3NR1rkHEHBXTn5k",
   authDomain: "anticaste-webapp.firebaseapp.com",
   databaseURL: "https://anticaste-webapp-default-rtdb.asia-southeast1.firebasedatabase.app",

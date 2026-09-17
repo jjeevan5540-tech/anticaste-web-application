@@ -1,4 +1,4 @@
-const MockData = {
+var MockData = {
   users: [
     { id: 1, name: 'Justice Seeker', role: 'user', status: 'active', created: '2024-02-20' },
     { id: 2, name: 'Equality Voice', role: 'user', status: 'active', created: '2024-03-10' },

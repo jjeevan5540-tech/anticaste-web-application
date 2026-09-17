@@ -1,4 +1,4 @@
-const Toast = {
+var Toast = {
   show(message, type) {
     type = type || 'info';
     const c = document.getElementById('toast-container');

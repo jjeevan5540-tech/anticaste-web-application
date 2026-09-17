@@ -1,4 +1,4 @@
-const PostCard = {
+var PostCard = {
   renderHeader: function(post) {
     var author = MockData.getUser(post.userId);
     var name = post.anonymous ? 'Anonymous' : (author ? author.name : 'Unknown');

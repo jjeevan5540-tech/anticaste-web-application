@@ -1,4 +1,4 @@
-const Modal = {
+var Modal = {
   open(content) {
     var bd = document.getElementById('modal-backdrop');
     var mc = document.getElementById('modal-content');

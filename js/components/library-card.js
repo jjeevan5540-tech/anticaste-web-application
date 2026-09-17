@@ -1,4 +1,4 @@
-const LibraryCard = {
+var LibraryCard = {
   render: function(r) {
     return '<article class="card">' +
       '<div class="card-header"><span class="badge badge-accent">' + App.escapeHtml(r.category) + '</span>' +
