@@ -22,9 +22,24 @@ var HomePage = {
       '<button class="filter-chip" data-filter="post">Posts</button>' +
       '<button class="filter-chip" data-filter="video">Videos</button>' +
       '<button class="filter-chip" data-filter="file">Files</button></div>' +
+      '<div class="grid-3" style="margin-bottom:var(--space-6);" id="home-overview"></div>' +
       '<div id="home-feed"></div>';
     this.setupFilters();
+    this.renderOverview();
     this.renderFeed();
+  },
+  renderOverview: function() {
+    var el = document.getElementById('home-overview');
+    if (!el) return;
+    var posts = MockData.getPublishedPosts();
+    var totalPosts = posts.filter(function(p) { return p.type === 'post'; }).length;
+    var totalVideos = posts.filter(function(p) { return p.type === 'video'; }).length;
+    var totalFiles = posts.filter(function(p) { return p.type === 'file'; }).length;
+    var totalComments = posts.reduce(function(sum, p) { return sum + (p.comments || 0); }, 0);
+    el.innerHTML =
+      '<div class="card"><div style="text-align:center;"><div class="stat-value">' + totalPosts + '</div><div class="stat-label">Posts</div></div></div>' +
+      '<div class="card"><div style="text-align:center;"><div class="stat-value">' + totalVideos + '</div><div class="stat-label">Videos</div></div></div>' +
+      '<div class="card"><div style="text-align:center;"><div class="stat-value">' + totalFiles + '</div><div class="stat-label">Files</div></div></div>';
   },
   setupFilters: function() {
     document.querySelectorAll('#home-filters .filter-chip').forEach(function(c) {

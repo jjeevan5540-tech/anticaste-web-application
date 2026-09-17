@@ -142,6 +142,7 @@
 
   /* ── Card Theme (Warm Cream) ── */
   --card-bg: #F3E9D2;
+  --card-border: #D8B56A33;
   --card-text: #252525;
   --card-text-secondary: #5C5248;
   --card-text-muted: #6B5E50;

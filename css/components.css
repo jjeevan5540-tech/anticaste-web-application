@@ -195,7 +195,9 @@ textarea.input { min-height: 100px; resize: vertical; line-height: var(--leading
 .tab-btn:hover::after { width: 100%; }
 
 /* Stats */
-.stat-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-5); text-align: center; box-shadow: var(--shadow-sm); }
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-4); }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
+.stat-card { background: var(--card-bg); border: 1px solid var(--card-border, var(--color-border)); border-radius: var(--radius-lg); padding: var(--space-5); text-align: center; box-shadow: var(--shadow-sm); }
 .stat-card:hover { box-shadow: 0 6px 20px rgba(172,68,37,0.15); }
 .stat-value { font-size: var(--text-2xl); font-weight: var(--font-bold); color: var(--color-primary); }
 .stat-label { font-size: var(--text-xs); color: var(--color-text-secondary); margin-top: var(--space-1); }
@@ -354,7 +356,6 @@ textarea.input { min-height: 100px; resize: vertical; line-height: var(--leading
 
 .card h1, .card h2, .card h3, .card h4,
 .card p, .card div, .card span, .card td, .card th,
-.card .stat-value,
 .card .badge, .card .tag {
   color: var(--card-text) !important;
 }
