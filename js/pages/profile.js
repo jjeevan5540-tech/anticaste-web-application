@@ -66,12 +66,12 @@ var ProfilePage = {
         editType = btn.dataset.type;
       });
     });
-    document.getElementById('edit-profile-save').addEventListener('click', function() {
+    document.getElementById('edit-profile-save').addEventListener('click', async function() {
       var name = document.getElementById('edit-name').value;
       var mobile = document.getElementById('edit-mobile').value;
       if (Auth.validateName(name)) { Toast.show(Auth.validateName(name), 'error'); return; }
       if (Auth.validateMobile(mobile)) { Toast.show(Auth.validateMobile(mobile), 'error'); return; }
-      AppState.updateUser(user.id, { name: name, mobile: mobile, type: editType, photo: newPhoto });
+      await AppState.updateUser(user.id, { name: name, mobile: mobile, type: editType, photo: newPhoto });
       Modal.close();
       Toast.show('Profile updated', 'success');
       ProfilePage.render(document.getElementById('main-content'));

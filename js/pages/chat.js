@@ -17,18 +17,18 @@ var ChatPage = {
     this.renderUserList();
     this.setupSearch();
   },
-  getAllChatUsers: function() {
+  getAllChatUsers: async function() {
     var myId = AppState.currentUser.id;
-    var registered = AppState.getUsers().filter(function(u) { return u.id !== myId && u.status === 'active'; });
+    var registered = (await AppState.getUsers()).filter(function(u) { return u.id !== myId && u.status === 'active'; });
     var mock = MockData.users.filter(function(u) { return u.role !== 'admin'; }).map(function(u) { return { id: u.id, name: u.name, photo: null, status: 'active' }; });
     var ids = {};
     registered.forEach(function(u) { ids[u.id] = true; });
     return registered.concat(mock.filter(function(u) { return !ids[u.id]; }));
   },
-  renderUserList: function(filter) {
+  renderUserList: async function(filter) {
     var list = document.getElementById('chat-user-list');
     if (!list) return;
-    var users = this.getAllChatUsers();
+    var users = await this.getAllChatUsers();
     if (filter) { var q = filter.toLowerCase(); users = users.filter(function(u) { return u.name.toLowerCase().includes(q); }); }
     var chatList = AppState.getChatList();
     var chatMap = {};
@@ -54,11 +54,12 @@ var ChatPage = {
     var t;
     input.addEventListener('input', function() { clearTimeout(t); t = setTimeout(function() { ChatPage.renderUserList(input.value); }, 200); });
   },
-  openChat: function(userId) {
+  openChat: async function(userId) {
     this.activeChat = userId;
     AppState.markChatRead(userId);
     this.renderUserList(document.getElementById('chat-user-search') ? document.getElementById('chat-user-search').value : '');
-    var user = this.getAllChatUsers().find(function(u) { return u.id === userId; });
+    var users = await this.getAllChatUsers();
+    var user = users.find(function(u) { return u.id === userId; });
     if (!user) return;
     var main = document.getElementById('chat-main');
     if (!main) return;

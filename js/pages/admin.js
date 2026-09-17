@@ -27,16 +27,16 @@ var AdminDashboard = {
       });
     });
   },
-  renderTab: function() {
+  renderTab: async function() {
     var el = document.getElementById('admin-content');
     if (!el) return;
     switch(this.currentTab) {
-      case 'overview': this.renderOverview(el); break;
-      case 'pending': this.renderPending(el); break;
-      case 'users': this.renderUsers(el); break;
+      case 'overview': await this.renderOverview(el); break;
+      case 'pending': await this.renderPending(el); break;
+      case 'users': await this.renderUsers(el); break;
       case 'posts': this.renderPosts(el); break;
       case 'reports': this.renderReports(el); break;
-      case 'audit': this.renderAudit(el); break;
+      case 'audit': await this.renderAudit(el); break;
     }
   },
   renderOverview: async function(el) {
@@ -96,8 +96,8 @@ var AdminDashboard = {
           '</div></div>' : '') +
           '</div>' +
           '<div class="card-footer">' +
-          '<button class="btn btn-outline btn-sm" onclick="AdminDashboard.approveUser(' + u.id + ')">Approve</button>' +
-          '<button class="btn btn-danger btn-sm" onclick="AdminDashboard.rejectUser(' + u.id + ')">Reject</button>' +
+          '<button class="btn btn-outline btn-sm" onclick="AdminDashboard.approveUser(\'' + u.id + '\')">Approve</button>' +
+          '<button class="btn btn-danger btn-sm" onclick="AdminDashboard.rejectUser(\'' + u.id + '\')">Reject</button>' +
           '</div></div>';
       }).join('');
   },
@@ -137,9 +137,9 @@ var AdminDashboard = {
           '<div style="display:flex;flex-direction:column;gap:var(--space-1);align-items:flex-end;">' +
           '<span class="badge ' + statusClass + '">' + u.status + '</span>' +
           '<div style="display:flex;gap:var(--space-1);">' +
-          '<button class="btn btn-ghost btn-sm" onclick="AdminDashboard.viewUser(' + u.id + ')">View</button>' +
-          (u.status === 'pending' ? '<button class="btn btn-ghost btn-sm" onclick="AdminDashboard.approveUser(' + u.id + ')">Approve</button>' : '') +
-          '<button class="btn btn-ghost btn-sm" onclick="AdminDashboard.toggleUserStatus(' + u.id + ')">' + (u.status === 'active' ? 'Suspend' : 'Activate') + '</button>' +
+          '<button class="btn btn-ghost btn-sm" onclick="AdminDashboard.viewUser(\'' + u.id + '\')">View</button>' +
+          (u.status === 'pending' ? '<button class="btn btn-ghost btn-sm" onclick="AdminDashboard.approveUser(\'' + u.id + '\')">Approve</button>' : '') +
+          '<button class="btn btn-ghost btn-sm" onclick="AdminDashboard.toggleUserStatus(\'' + u.id + '\')">' + (u.status === 'active' ? 'Suspend' : 'Activate') + '</button>' +
           '</div></div></div></div>';
       }).join('');
   },
@@ -169,8 +169,8 @@ var AdminDashboard = {
     }
     html += '</div>' +
       '<div class="modal-footer"><button class="btn btn-outline" onclick="Modal.close()">Close</button>' +
-      (user.status === 'pending' ? '<button class="btn btn-primary btn-sm" onclick="Modal.close();AdminDashboard.approveUser(' + user.id + ')">Approve</button>' : '') +
-      '<button class="btn btn-danger btn-sm" onclick="Modal.close();AdminDashboard.deleteUser(' + user.id + ')">Delete</button></div>';
+      (user.status === 'pending' ? '<button class="btn btn-primary btn-sm" onclick="Modal.close();AdminDashboard.approveUser(\'' + user.id + '\')">Approve</button>' : '') +
+      '<button class="btn btn-danger btn-sm" onclick="Modal.close();AdminDashboard.deleteUser(\'' + user.id + '\')">Delete</button></div>';
     Modal.open(html);
   },
   toggleUserStatus: async function(id) {
