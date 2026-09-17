@@ -199,6 +199,8 @@ textarea.input { min-height: 100px; resize: vertical; line-height: var(--leading
 .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
 .stat-card { background: var(--card-bg); border: 1px solid var(--card-border, var(--color-border)); border-radius: var(--radius-lg); padding: var(--space-5); text-align: center; box-shadow: var(--shadow-sm); }
 .stat-card:hover { box-shadow: 0 6px 20px rgba(172,68,37,0.15); }
+.stat-card .stat-value { font-size: var(--text-2xl); font-weight: var(--font-bold); color: var(--color-primary) !important; }
+.stat-card .stat-label { font-size: var(--text-xs); color: var(--card-text-secondary) !important; margin-top: var(--space-1); }
 .stat-value { font-size: var(--text-2xl); font-weight: var(--font-bold); color: var(--color-primary); }
 .stat-label { font-size: var(--text-xs); color: var(--color-text-secondary); margin-top: var(--space-1); }
 
@@ -355,11 +357,12 @@ textarea.input { min-height: 100px; resize: vertical; line-height: var(--leading
 .post-card .badge-warning, .post-card .badge-accent { color: #B45309 !important; }
 
 .card h1, .card h2, .card h3, .card h4,
-.card p, .card div, .card span, .card td, .card th,
+.card p, .card td, .card th,
 .card .badge, .card .tag {
   color: var(--card-text) !important;
 }
-.card .stat-label { color: var(--card-text-muted) !important; }
+.card .stat-value { color: var(--color-primary) !important; }
+.card .stat-label { color: var(--card-text-secondary) !important; }
 .card a { color: var(--color-primary) !important; }
 .card .badge-success { color: #15803D !important; background: #DCFCE7 !important; }
 .card .badge-error { color: #DC2626 !important; background: #FEE2E2 !important; }
