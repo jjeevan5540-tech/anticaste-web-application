@@ -18,12 +18,16 @@ var ChatPage = {
     this.setupSearch();
   },
   getAllChatUsers: async function() {
-    var myId = AppState.currentUser.id;
-    var registered = (await AppState.getUsers()).filter(function(u) { return u.id !== myId && u.status === 'active'; });
+    var myId = String(AppState.currentUser.id);
+    var registered = [];
+    try {
+      var users = await AppState.getUsers();
+      registered = users.filter(function(u) { return String(u.id) !== myId && u.status === 'active'; });
+    } catch(e) { console.warn('Failed to load users:', e); }
     var mock = MockData.users.filter(function(u) { return u.role !== 'admin'; }).map(function(u) { return { id: u.id, name: u.name, photo: null, status: 'active' }; });
     var ids = {};
-    registered.forEach(function(u) { ids[u.id] = true; });
-    return registered.concat(mock.filter(function(u) { return !ids[u.id]; }));
+    registered.forEach(function(u) { ids[String(u.id)] = true; });
+    return registered.concat(mock.filter(function(u) { return !ids[String(u.id)]; }));
   },
   renderUserList: async function(filter) {
     var list = document.getElementById('chat-user-list');
@@ -40,7 +44,7 @@ var ChatPage = {
       var lastTime = chat && chat.lastMsg ? App.timeAgo(chat.lastMsg.created) : '';
       var unread = chat ? chat.unread : 0;
       var isActive = ChatPage.activeChat === u.id;
-      return '<div class="chat-user-item' + (isActive ? ' active' : '') + '" onclick="ChatPage.openChat(' + u.id + ')">' +
+      return '<div class="chat-user-item' + (isActive ? ' active' : '') + '" onclick="ChatPage.openChat(\'' + u.id + '\')">' +
         '<div class="chat-user-avatar">' + (u.photo ? '<img src="' + u.photo + '">' : '<span>' + Auth.getInitials(u.name) + '</span>') + '</div>' +
         '<div class="chat-user-info"><div class="chat-user-name">' + App.escapeHtml(u.name) + '</div>' +
         '<div class="chat-user-last">' + App.escapeHtml(lastMsg.substring(0, 40)) + (lastMsg.length > 40 ? '...' : '') + '</div></div>' +
@@ -55,11 +59,12 @@ var ChatPage = {
     input.addEventListener('input', function() { clearTimeout(t); t = setTimeout(function() { ChatPage.renderUserList(input.value); }, 200); });
   },
   openChat: async function(userId) {
+    userId = String(userId);
     this.activeChat = userId;
     AppState.markChatRead(userId);
     this.renderUserList(document.getElementById('chat-user-search') ? document.getElementById('chat-user-search').value : '');
     var users = await this.getAllChatUsers();
-    var user = users.find(function(u) { return u.id === userId; });
+    var user = users.find(function(u) { return String(u.id) === userId; });
     if (!user) return;
     var main = document.getElementById('chat-main');
     if (!main) return;

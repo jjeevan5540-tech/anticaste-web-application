@@ -179,20 +179,21 @@ var AppState = {
   getChatList: function() {
     if (!this.currentUser) return [];
     var all = JSON.parse(localStorage.getItem('ac_chats') || '{}');
-    var key = 'user_' + this.currentUser.id;
+    var key = 'user_' + String(this.currentUser.id);
     return all[key] || [];
   },
 
   getMessages: function(myId, otherId) {
     var all = JSON.parse(localStorage.getItem('ac_chats') || '{}');
-    var chatKey = [myId, otherId].sort().join('_');
+    var chatKey = [String(myId), String(otherId)].sort().join('_');
     return all['chat_' + chatKey] || [];
   },
 
   sendMessage: function(toUserId, body) {
     if (!this.currentUser) return;
     var all = JSON.parse(localStorage.getItem('ac_chats') || '{}');
-    var myId = this.currentUser.id;
+    var myId = String(this.currentUser.id);
+    toUserId = String(toUserId);
     var chatKey = [myId, toUserId].sort().join('_');
     var messagesKey = 'chat_' + chatKey;
 
@@ -207,7 +208,7 @@ var AppState = {
 
     var userKey = 'user_' + myId;
     if (!all[userKey]) all[userKey] = [];
-    var existing = all[userKey].find(function(c) { return c.otherId === toUserId; });
+    var existing = all[userKey].find(function(c) { return String(c.otherId) === toUserId; });
     if (!existing) {
       all[userKey].push({ otherId: toUserId, lastMsg: { body: body, created: new Date().toISOString() }, unread: 0 });
     } else {
@@ -216,7 +217,7 @@ var AppState = {
 
     var otherKey = 'user_' + toUserId;
     if (!all[otherKey]) all[otherKey] = [];
-    var otherExisting = all[otherKey].find(function(c) { return c.otherId === myId; });
+    var otherExisting = all[otherKey].find(function(c) { return String(c.otherId) === myId; });
     if (!otherExisting) {
       all[otherKey].push({ otherId: myId, lastMsg: { body: body, created: new Date().toISOString() }, unread: 1 });
     } else {
@@ -230,9 +231,10 @@ var AppState = {
   markChatRead: function(otherId) {
     if (!this.currentUser) return;
     var all = JSON.parse(localStorage.getItem('ac_chats') || '{}');
-    var key = 'user_' + this.currentUser.id;
+    var key = 'user_' + String(this.currentUser.id);
     if (!all[key]) return;
-    var chat = all[key].find(function(c) { return c.otherId === otherId; });
+    otherId = String(otherId);
+    var chat = all[key].find(function(c) { return String(c.otherId) === otherId; });
     if (chat) chat.unread = 0;
     localStorage.setItem('ac_chats', JSON.stringify(all));
   }
