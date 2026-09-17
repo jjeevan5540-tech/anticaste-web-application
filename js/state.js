@@ -1,6 +1,6 @@
 // state.js — session, register, login, logout, admin actions, audit log (Firebase Firestore)
 
-const AppState = {
+var AppState = {
   currentUser: null,
 
   async getUsers() {
