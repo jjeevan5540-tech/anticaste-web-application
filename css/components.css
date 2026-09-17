@@ -78,6 +78,13 @@ textarea.input { min-height: 100px; resize: vertical; line-height: var(--leading
 /* Tags */
 .tag { display: inline-flex; align-items: center; padding: 2px var(--space-2); font-size: var(--text-xs); font-weight: var(--font-medium); border-radius: var(--radius-sm); background: var(--color-surface-variant); color: var(--color-text-secondary); }
 
+/* File Info Box */
+.file-info-box { display: flex; align-items: center; gap: var(--space-3); background: var(--card-tag-bg); border-radius: var(--radius-md); padding: var(--space-3) var(--space-4); margin-bottom: var(--space-3); }
+.file-info-icon { font-size: 24px; flex-shrink: 0; }
+.file-info-details { flex: 1; min-width: 0; }
+.file-info-name { font-size: var(--text-sm); font-weight: var(--font-medium); color: var(--card-text) !important; }
+.file-info-size { font-size: var(--text-xs); color: var(--card-text-muted) !important; }
+
 /* ============================================================
    POST TYPE BADGES
    ============================================================ */
