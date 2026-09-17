@@ -58,7 +58,7 @@ textarea.input { min-height: 100px; resize: vertical; line-height: var(--leading
 .card-footer { display: flex; align-items: center; gap: var(--space-3); padding-top: var(--space-3); border-top: 1px solid var(--color-border-light); }
 
 /* Post Card */
-.post-card { margin-bottom: var(--space-4); }
+.post-card { margin-bottom: var(--space-4); background: var(--card-bg); border: 1px solid var(--card-border); border-radius: var(--radius-lg); padding: var(--space-5); box-shadow: 0 2px 8px rgba(120,90,50,0.08); }
 .post-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
 .post-card-header { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-3); }
 .post-card-avatar { width: 36px; height: 36px; border-radius: var(--radius-full); background: var(--color-primary); color: var(--color-on-primary); display: flex; align-items: center; justify-content: center; font-size: var(--text-xs); font-weight: var(--font-bold); flex-shrink: 0; overflow: hidden; }

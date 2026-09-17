@@ -141,12 +141,12 @@
   --z-toast: 400;
 
   /* ── Card Theme (Warm Cream) ── */
-  --card-bg: #F3E9D2;
-  --card-border: #D8B56A33;
+  --card-bg: #FAF6F0;
+  --card-border: #E8DCC8;
   --card-text: #252525;
   --card-text-secondary: #5C5248;
   --card-text-muted: #6B5E50;
-  --card-tag-bg: #EDE3D4;
+  --card-tag-bg: #F0E8D8;
   --card-tag-text: #6B5242;
 }
 
