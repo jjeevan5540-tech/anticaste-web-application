@@ -1,9 +1,13 @@
 var App = {
   init: async function() {
-    await AppState.seedDefaults();
-    if (!localStorage.getItem('ac_admin')) {
-      await AppState.seedAdmin('admin', 'admin123', 'admin@anticaste.org');
-    }
+    try {
+      await AppState.seedDefaults();
+    } catch(e) { console.warn('Seed defaults failed:', e); }
+    try {
+      if (!localStorage.getItem('ac_admin')) {
+        await AppState.seedAdmin('admin', 'admin123', 'admin@anticaste.org');
+      }
+    } catch(e) { console.warn('Seed admin failed:', e); }
     this.renderShell();
     Nav.render();
     this.route();
