@@ -51,7 +51,7 @@ textarea.input { min-height: 100px; resize: vertical; line-height: var(--leading
 /* ============================================================
    A. STANDARD POST CARD — Light: #FFFFFF / Dark: #1C2229
    ============================================================ */
-.card { background: var(--card-bg) !important; border: 1px solid #D8B56A33; border-top: 2px solid #D8B56A; border-radius: var(--radius-lg); padding: var(--space-5); transition: box-shadow 0.2s ease; box-shadow: 0 2px 8px rgba(120,90,50,0.08), 0 1px 3px rgba(120,90,50,0.06); }
+.card { background: var(--card-bg) !important; border: 1px solid #D8B56A33; border-top: 2px solid #D8B56A; border-radius: var(--radius-lg); padding: var(--space-5); transition: box-shadow 0.2s ease; box-shadow: 0 2px 8px rgba(120,90,50,0.08), 0 1px 3px rgba(120,90,50,0.06); color: var(--card-text); }
 .card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
 .card-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: var(--space-3); }
 .card-body { margin-bottom: var(--space-3); }
